@@ -53,6 +53,7 @@ show_masked_bins = false
                            'max_value': None,
                            'min_value': None,
                            'rasterize': True,
+                           'nan_color': 'black', 
                            'colormap': DEFAULT_MATRIX_COLORMAP}
     NECESSARY_PROPERTIES = ['file']
     SYNONYMOUS_PROPERTIES = {'max_value': {'auto': None},
@@ -62,7 +63,7 @@ show_masked_bins = false
     BOOLEAN_PROPERTIES = ['show_masked_bins', 'rasterize']
     STRING_PROPERTIES = ['file', 'file_type', 'overlay_previous',
                          'orientation', 'transform',
-                         'title', 'colormap']
+                         'title', 'colormap', 'nan_color']
     FLOAT_PROPERTIES = {'max_value': [- np.inf, np.inf],
                         'min_value': [- np.inf, np.inf],
                         'scale_factor': [- np.inf, np.inf],
@@ -197,7 +198,7 @@ show_masked_bins = false
                            colormap_only=True, default_value_is_colormap=True)
 
         self.cmap = copy.copy(cm.get_cmap(self.properties['colormap']))
-        self.cmap.set_bad('black')
+        self.cmap.set_bad(self.properties['nan_color'])
 
     def reduce_matrix(self, max_depth_in_bins):
         # work only with the lower matrix
